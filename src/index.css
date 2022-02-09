@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Clear Sans';
+  src: local('Clear Sans') url(./fonts/ClearSans-Regular.ttf) format('ttf');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#121213] text-gray-250;
+  }
+}
