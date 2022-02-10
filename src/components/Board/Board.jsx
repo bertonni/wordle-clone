@@ -4,7 +4,8 @@ import BoardRow from './BoardRow';
 
 export default function Board({ guess, currentRow, deleted }) {
 
-  const { gameState } = useGame();
+  const { gameState, error } = useGame();
+
   return (
     <div className='flex flex-grow items-center justify-center overflow-hidden pointer-events-none'>
       <div className='grid grid-rows-6 gap-[5px] p-2 box-border w-87 h-105'>
@@ -14,6 +15,7 @@ export default function Board({ guess, currentRow, deleted }) {
           letters={guess}
           length={guess.length}
           deleted={deleted}
+          error={error}
         />
         <BoardRow
           row={2}
@@ -21,6 +23,7 @@ export default function Board({ guess, currentRow, deleted }) {
           letters={gameState.boardState[1]}
           length={guess.length}
           deleted={deleted}
+          error={error}
         />
         <BoardRow
           row={3}
@@ -28,6 +31,7 @@ export default function Board({ guess, currentRow, deleted }) {
           letters={gameState.boardState[2]}
           length={guess.length}
           deleted={deleted}
+          error={error}
         />
         <BoardRow
           row={4}
@@ -35,6 +39,7 @@ export default function Board({ guess, currentRow, deleted }) {
           letters={gameState.boardState[3]}
           length={guess.length}
           deleted={deleted}
+          error={error}
         />
         <BoardRow
           row={5}
@@ -42,6 +47,7 @@ export default function Board({ guess, currentRow, deleted }) {
           letters={gameState.boardState[4]}
           length={guess.length}
           deleted={deleted}
+          error={error}
         />
         <BoardRow
           row={6}
@@ -49,6 +55,7 @@ export default function Board({ guess, currentRow, deleted }) {
           letters={gameState.boardState[5]}
           length={guess.length}
           deleted={deleted}
+          error={error}
         />
       </div>
     </div>

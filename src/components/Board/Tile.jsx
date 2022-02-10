@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const variant = {
   hidden: { opacity: 1, scale: 1 },
@@ -6,7 +6,7 @@ const variant = {
   exit: { opacity: 1, scale: 1 },
 };
 
-export default function Tile({ letter = "", state, animate, exit = {}, test }) {
+export default function Tile({ letter = "", state, animate, exit = {}, length }) {
   const bg =
     state === "correct"
       ? "bg-correct"
@@ -18,7 +18,9 @@ export default function Tile({ letter = "", state, animate, exit = {}, test }) {
       ? "border-2 border-[#565758]"
       : "border-2 border-[#3a3a3c]";
 
-  return animate ? (
+  console.log(length)
+
+  return animate && length != 5 ? (
     // <AnimatePresence exitBeforeEnter>
       <motion.div
         variants={variant}
