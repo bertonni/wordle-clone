@@ -1,5 +1,5 @@
 import { createContext, useMemo } from "react";
-import useLocalStorage from "../../../joga-facil-vite/src/hooks/useLocalStorage";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export const GameContext = createContext({});
 

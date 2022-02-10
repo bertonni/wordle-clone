@@ -7,7 +7,7 @@ import {
   faPlus,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Board from "./components/Board/Board";
 import Header from "./components/Header";
 import Keyboard from "./components/Keyboard/Keyboard";
@@ -16,37 +16,43 @@ library.add(faEdit, faTrash, faCheck, faUser, faTimes, faPlus);
 
 function App() {
 
-  const [currentWord, setCurrentWord] = useState([]);
+  const [currentRow, setCurrentRow] = useState(1);
+  const [deleted, setDeleted] = useState(false);
+  const [currentWord, setCurrentWord] = useState("");
+  
+  const wordRef = useRef();
 
-  const handleKeyDown = (event) => {
+  wordRef.current = currentWord;
+
+  const handleKeyDown = (e) => {
     const regEx = /^([a-zA-Z]{1})$/;
-    const key = event.key;
+    const key = e.key;
+
     if (key.match(regEx) || key === "Enter" || key === "Backspace") {
-      if (key === "Enter") {
-        verifyGuess(currentWord.join(""));
-      } else if (key === "Backspace") {
-        currentWord.pop();
-        setCurrentWord(currentWord);
+      if (key === "Enter") console.log('enter');
+      else if (key === "Backspace") {
+        setCurrentWord(wordRef.current.substring(0, wordRef.current.length - 1));
+        setDeleted(true);
       } else {
-        if (currentWord.length < 5) {
-          setCurrentWord((prevCurrentWord) => {
-            return [...prevCurrentWord, key];
+        if (wordRef.current.length < 5) {
+          setCurrentWord((prevCurrWord) => {
+            return prevCurrWord + key;
           });
         }
+        setDeleted(false);
       }
     }
   }
   
   useEffect(() => {
-    document.body.addEventListener('keydown', handleKeyDown);
-  }, []);
+    window.addEventListener("keydown", handleKeyDown);
+  }, [])
+
 
   return (
-    <div
-      className="flex flex-col justify-center h-screen w-full mx-auto my-0 max-w-[500px]"
-    >
+    <div className="flex flex-col justify-center h-screen w-full mx-auto my-0 max-w-[500px]">
       <Header />
-      <Board guess={currentWord} />
+      <Board currentRow={currentRow} guess={currentWord} deleted={deleted} />
       <Keyboard />
     </div>
   )
